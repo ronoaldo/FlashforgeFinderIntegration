@@ -3,6 +3,6 @@
     "author": "Spanni26",
     "version": "1.0.0",
     "description": "Adds chitu code to gcode",
-    "api": "7.1",
+    "api": "7.1.0",
     "i18n-catalog": "cura"
 }
