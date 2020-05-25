@@ -1,10 +1,7 @@
-# Cura PostProcessingPlugin
-# Author:   Daniuel Spannbauer
-# Date:     November 3, 2019
-
+# Author:   Ronoaldo JLP 
+# Date:     May 24, 2020
 # Description:  This plugin generates and inserts code including a image of the
 #               slices part.
-
 
 from UM.Mesh.MeshWriter import MeshWriter
 from UM.MimeTypeDatabase import MimeTypeDatabase, MimeType
@@ -19,7 +16,7 @@ catalog = i18nCatalog("cura")
 import re
 from io import StringIO, BufferedIOBase #To write the g-code to a temporary buffer, and for typing.
 from typing import cast, List
-
+from . import gx
 
 def getValue(line, key, default=None):
     if key not in line:
@@ -27,82 +24,84 @@ def getValue(line, key, default=None):
     else:
         subPart = line[line.find(key) + len(key):]
         m = re.search('^-?[0-9]+\\.?[0-9]*', subPart)
-        #if m is None:
-        #    pass
-        #return default
     try:
         return float(m.group(0))
     except:
         return default
 
+class GXWriter(MeshWriter):
 
-
-class ChituCodeWriter(MeshWriter):
     def __init__(self):
         super().__init__(add_to_recent_files = False)
         self._snapshot = None
         MimeTypeDatabase.addMimeType(
             MimeType(
-                name = "text/chitu-g-code",
-                comment = "chitu additionals",
-                suffixes = ["gcode"]
+                name = "application/xgcode",
+                comment = "GX (xgcode)",
+                suffixes = ["gx"],
             )
         )
 
-    @call_on_qt_thread    
-    def write(self,stream: BufferedIOBase, nodes: List[SceneNode], mode = MeshWriter.OutputMode.BinaryMode) -> bool:
-        Logger.log("i", "starting ChituCodeWriter.")
-        if mode != MeshWriter.OutputMode.TextMode:
-            Logger.log("e", "ChituCodeWriter does not support non-text mode.")
-            self.setInformation(catalog.i18nc("@error:not supported", "ChituCodeWriter does not support non-text mode."))
+    @call_on_qt_thread 
+    def write(self, stream, nodes: List[SceneNode], mode = MeshWriter.OutputMode.BinaryMode) -> bool:
+        Logger.log("i", "Starting GXWriter.")
+        if mode != MeshWriter.OutputMode.BinaryMode:
+            Logger.log("e", "GXWriter does not support non-text mode.")
+            self.setInformation(catalog.i18nc("@error:not supported", "GXWriter does not support non-text mode."))
             return False
+        # Render in-memory gcode
         gcode_textio = StringIO() #We have to convert the g-code into bytes.
         gcode_writer = cast(MeshWriter, PluginRegistry.getInstance().getPluginObject("GCodeWriter"))
         success = gcode_writer.write(gcode_textio, None)
-        
+        # If gcode fails, we can't proceed.
         if not success: 
             self.setInformation(gcode_writer.getInformation())
             return False
+        # Mofify gcode adding gx header binary information and image preview.
         result=self.modify(gcode_textio.getvalue())
         stream.write(result)
-        Logger.log("i", "ChituWriter done")
+        Logger.log("i", "GXWriter done")
         return True
 
-    def modify(self,in_data):
-        self._createSnapshot()
-        temp_in_data=self.generate_image_code(self._snapshot)
-        temp_in_data+="\n"
-        temp_in_data+=in_data
-        time_data=self.insert_time_infos(temp_in_data)
-        return time_data
-    
+    def modify(self, gcode):
+        try:
+            # Initialize GX header variables
+            g = gx.GX()
+            g.gcode = gcode.encode('latin-1')
+            # Parse values from original gcode
+            self._parse_gcode_info(g, gcode)
+            # TODO(ronoaldo): insert the grayscale bitmap into image
+            self._createSnapshot()
+            g.bmp = b"".join([b"\x00" for x in range(14454)])
+            return g.encode()
+        except Exception:
+            Logger.logException("w", "\n\n\n\n*** Failed to create gx file, defaulting to write gcode!!! ***\n\n\n")
+            return gcode.encode('latin-1')
 
-    def insert_time_infos(self, gcode_data):
-        return_data=""
-        for line in gcode_data.split("\n"):
+    def _parse_gcode_info(self, gx, gcode):
+        for line in gcode.split("\n"):
             if line.startswith(';TIME:'):
-                return_data += 'M2100 T%d\n' % int(getValue(line, ';TIME:', 0))
-            elif line.startswith(';TIME_ELAPSED:'):
-                return_data +='M2101 T%d\n' % int(getValue(line, ';TIME_ELAPSED:', 0))  
-            else:
-                if line.endswith("\n"):
-                    return_data += line
-                else:
-                    return_data += line + "\n"     
-        return return_data        
-        
+                gx.print_time = int(getValue(line, ';TIME:', 0))
+            if line.startswith(';Filament used:'):
+                f = float(line.split(':')[1].split('m')[0].strip())
+                f = f*100
+                gx.filament_usage = int(f)
+            if line.startswith(';Layer height:'):
+                f = float(getValue(line, ';Layer height:', 0))
+                f = f*1000
+                gx.layer_height = int(f)
+        Logger.log("i", "Updated values from struct =>", vars(gx))
 
     def _createSnapshot(self, *args):
-        Logger.log("i", "Creating chitu thumbnail image ...")
+        Logger.log("i", "Creating thumbnail image ...")
         try:
-            self._snapshot = Snapshot.snapshot(width = 300, height = 300)
+            self._snapshot = Snapshot.snapshot(width = 60, height = 60)
+            Logger.log("i", "self._snapshot => ", dir(self._snapshot))
         except Exception:
             Logger.logException("w", "Failed to create snapshot image")
             self._snapshot = None  
 
-   
-
-    def generate_image_code(self, image,startX=0, startY=0, endX=300, endY=300):
+    def generate_image_code(self, image,startX=0, startY=0, endX=60, endY=60):
         MAX_PIC_WIDTH_HEIGHT = 320
         width = image.width()
         height = image.height()
@@ -180,4 +179,4 @@ class ChituCodeWriter(MeshWriter):
             pixel_num += 1
         pixel_string+=("M4010 I%d T%d '%s'\n" % (index_pixel, pixel_num, pixel_data))
         return pixel_string
-    
+
