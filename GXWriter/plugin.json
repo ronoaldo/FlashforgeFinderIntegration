@@ -1,8 +1,8 @@
 {
-    "name": "Chitu code Writer",
-    "author": "Spanni26",
+    "name": "FlashForge Finder Tools",
+    "author": "Ronoaldo JLP",
     "version": "1.0.0",
-    "description": "Adds chitu code to gcode",
+    "description": "Add tools to help FlashForge Finder users to use Cura as slicer.",
     "api": "7.1.0",
     "i18n-catalog": "cura"
 }

@@ -71,8 +71,8 @@ class GXWriter(MeshWriter):
             # Parse values from original gcode
             self._parse_gcode_info(g, gcode)
             # TODO(ronoaldo): insert the grayscale bitmap into image
-            self._createSnapshot()
-            g.bmp = b"".join([b"\x00" for x in range(14454)])
+            # self._createSnapshot()
+            g.bmp = gx._SAMPLE_BMP
             return g.encode()
         except Exception:
             Logger.logException("w", "\n\n\n\n*** Failed to create gx file, defaulting to write gcode!!! ***\n\n\n")
@@ -179,4 +179,3 @@ class GXWriter(MeshWriter):
             pixel_num += 1
         pixel_string+=("M4010 I%d T%d '%s'\n" % (index_pixel, pixel_num, pixel_data))
         return pixel_string
-

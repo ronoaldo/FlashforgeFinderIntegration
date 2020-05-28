@@ -20,3 +20,14 @@ This work is based on the ChituCodeWriter from https://github.com/Spanni26/Chitu
 To inlcude the GX code into the gcode slice as normal an save as "GX file"
 
 Have Fun!
+
+# TODO
+
+* Add printer definition and submit plugin + printer definition to cloud
+* Add send job/monitor support
+
+# Links
+
+https://www.reddit.com/r/3Dprinting/comments/9lcdti/flashforge_finder_wireless_monitoring_tools/
+https://github.com/01F0/flashforge-finder-api/tree/master/api
+

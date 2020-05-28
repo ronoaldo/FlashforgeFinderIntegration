@@ -2,9 +2,10 @@
 import gx, sys
 
 orig, changed = b'', b''
+orig_name = sys.argv[1] if len(sys.argv)>1 else "testdata/cube.gx"
 
 # Open input file for parsing 
-with open('testdata/cube.gx', 'rb') as fd:
+with open(orig_name, 'rb') as fd:
     orig = fd.read()
     fd.close()
     g = gx.GX()
