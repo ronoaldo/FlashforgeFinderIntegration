@@ -4,11 +4,11 @@
 from ..Script import Script
 
 ##  Pause at layer with M25.
-class PauseAtLayerWithM25(Script):
+class PauseAtLayerFFFinder(Script):
     def getSettingDataString(self):
         return """{
-            "name": "Pause at layer with M25",
-            "key": "PauseAtLayerWithM25",
+            "name": "Pause at layer (FlashForge Finder)",
+            "key": "PauseAtLayerFFFinder",
             "metadata": {},
             "version": 2,
             "settings":
