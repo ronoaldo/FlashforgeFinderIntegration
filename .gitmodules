@@ -1,0 +1,3 @@
+[submodule "printer"]
+	path = printer
+	url = https://github.com/eskeyaar/Flashforge-Finder-
