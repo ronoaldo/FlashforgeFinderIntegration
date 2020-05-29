@@ -1,23 +1,34 @@
 #!/bin/bash
 set -e
+[ -n "$DEBUG" ] && set -x
 
-rootdir="$(readlink -f "$(dirname $0)/../..")"
+# Globals
+rootdir="$(readlink -f "$(dirname $0)/..")"
 pkg="FlashforgeFinderIntegration"
 version="${version:-latest-$(git rev-parse HEAD)}"
-outdir="${rootdir}/${pkg}/build"
-outfile="${pkg}-${version}.zip"
+outdir="${rootdir}/build"
+outfile="${pkg}-${version}.curapackage"
 
-echo "Package: $pkg"
-echo "Root dir: $rootdir"
-echo "Version: $version"
+# Use a temporary folder to bundle the extension
+work="$(mktemp -d)"
+trap 'rm -r "$work"' EXIT
 
-cd $rootdir
-mkdir -p ${outdir}
-zip ${outdir}/${outfile} \
-	-x "*testdata*" -q -r \
-	${pkg}/plugin.json \
-	${pkg}/plugins/ \
-	${pkg}/scripts/
+# Create .curapackage skeleton
+cp LICENSE icon.png package.json "$work"
+mkdir -p "$work/files"
+cp -r plugins/ scripts/ "$work/files"
+cd printer
+cp -r definitions extruders meshes "$work/files"
+
+# Package the output
+mkdir -p "${outdir}"
+rm "${outdir}/${outfile}"
+cd "$work"
+zip ${outdir}/${outfile} -q \
+	-x "*testdata*" \
+	-x "*__pycache__*" \
+	-x "*pyc" \
+	-r .
 
 echo "Package file created at ${outdir}/${outfile}"
 unzip -l "${outdir}/${outfile}"

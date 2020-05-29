@@ -1,0 +1,19 @@
+{
+    "author": {
+        "author_id": "ronoaldo",
+        "display_name": "Ronoaldo Pereira",
+        "email": "ronoaldo@gmail.com",
+        "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
+    },
+    "description": "Flashforge Finder integration to enable users to allow ",
+    "display_name": "Flashforge Finder",
+    "package_id": "FlashforgeFinderIntegration",
+    "package_type": "plugin",
+    "package_version": "1.0.0",
+    "sdk_version": 5,
+    "tags": [
+        "Flashforge",
+	"Finder"
+    ],
+    "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
+}
