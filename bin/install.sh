@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
-set -x
 
 echo "Installing for all Cura versions... "
 
-srcdir="$(readlink -f "`dirname $0`")"
+srcdir="$(readlink -f "`dirname $0`/..")"
 destdir=$HOME/.local/share/cura
 VERSIONS="$(ls -d $destdir/*/)"
 
