@@ -1,5 +1,7 @@
-#Copyright (c) 2018 Ultimaker B.V.
-#Cura is released under the terms of the LGPLv3 or higher.
+# Author:   Ronoaldo JLP 
+# Date:     May 24, 2020
+# Description:  This module implements parsing and writing xgcode 1.0 files. 
+# License:  GPLv3
 
 import sys
 
