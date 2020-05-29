@@ -41,7 +41,7 @@ class GXWriter(MeshWriter):
         self._snapshot = None
         MimeTypeDatabase.addMimeType(
             MimeType(
-                name = "application/xgcode",
+                name = "application/gx",
                 comment = "GX (xgcode)",
                 suffixes = ["gx"],
             )

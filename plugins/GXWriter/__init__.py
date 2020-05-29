@@ -24,10 +24,10 @@ def getMetaData():
         "mesh_writer": {
             "output": [
                 {
-                    "mime_type": "application/xgcode",
+                    "mime_type": "application/gx",
                     "mode": MeshWriter.OutputMode.BinaryMode,
                     "extension": "gx",
-                    "description": i18n_catalog.i18nc("@item:inlistbox", "GX (xgcode)")
+                    "description": i18n_catalog.i18nc("@item:inlistbox", "GX (gx)")
                 }
             ]
         }
