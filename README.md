@@ -10,7 +10,8 @@ experience for Flashforge Finder users.
 4. find your local plugin dir (start Cura -> Help -> Show configuration folder)
 3. copy the folder "GXWriter" into the "plugins" dir 
 4. copy the file under "scripts" into the "scripts" dir
-4. restart cura
+5. copy the printer sub-folders to their respective cura configuration directories
+6. restart cura
 
 To inlcude the GX code into the gcode slice as normal an save as "GX (xgcode)"
 
@@ -29,7 +30,7 @@ from this issue on Github.
 
 # Whishlist 
 
-* Add printer definition and submit plugin + printer definition to cloud
+* ~Add printer definition and submit plugin + printer definition to cloud~ Available here https://github.com/eskeyaar/Flashforge-Finder-
 * Add send job/monitor support
 
 # Binary xgcode 1.0 header
