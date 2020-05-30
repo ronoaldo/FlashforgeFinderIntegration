@@ -1,16 +1,17 @@
 {
     "author": {
         "author_id": "ronoaldo",
-        "display_name": "Ronoaldo Pereira",
+        "display_name": "Ronoaldo JLP",
         "email": "ronoaldo@gmail.com",
         "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
     },
-    "description": "Flashforge Finder integration to enable users to allow ",
-    "display_name": "Flashforge Finder",
+    "description": "Flashforge Finder integration utilities to enable setting up and using the printer.",
+    "display_name": "Flashforge Finder Integration",
     "package_id": "FlashforgeFinderIntegration",
     "package_type": "plugin",
     "package_version": "1.0.0",
-    "sdk_version": 5,
+    "sdk_version": "7.1.0",
+    "supported_sdk_versions": ["5.0.0", "6.0.0", "7.0.0"],
     "tags": [
         "Flashforge",
 	"Finder"

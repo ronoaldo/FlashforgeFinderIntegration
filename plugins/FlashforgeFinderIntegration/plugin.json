@@ -1,0 +1,9 @@
+{
+    "name": "FlashforgeFinderIntegration",
+    "author": "Ronoaldo JLP",
+    "version": "1.0.0",
+    "description": "Flashforge Finder integration utilities to enable setting up and using the printer.",
+    "api": 5,
+    "supported_sdk_versions": ["5.0.0", "6.0.0", "7.0.0"],
+    "i18n-catalog": "cura"
+}

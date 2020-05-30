@@ -14,15 +14,13 @@ work="$(mktemp -d)"
 trap 'rm -r "$work"' EXIT
 
 # Create .curapackage skeleton
-cp LICENSE icon.png package.json "$work"
 mkdir -p "$work/files"
-cp -r plugins/ scripts/ "$work/files"
-cd printer
-cp -r definitions extruders meshes "$work/files"
+cp LICENSE icon.png package.json "$work"
+cp -r plugins/ "$work/files"
 
 # Package the output
 mkdir -p "${outdir}"
-rm "${outdir}/${outfile}"
+rm -f "${outdir}/${outfile}"
 cd "$work"
 zip ${outdir}/${outfile} -q \
 	-x "*testdata*" \
