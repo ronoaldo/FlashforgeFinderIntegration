@@ -1,0 +1,22 @@
+{
+    "author": {
+        "author_id": "ronoaldo",
+        "display_name": "Ronoaldo JLP",
+        "email": "ronoaldo@gmail.com",
+        "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
+    },
+    "description": "GXWriter creates Flashprint compatible binary header to generated G-Code.",
+    "display_name": "GXWriter",
+    "package_id": "GXWriter",
+    "package_type": "plugin",
+    "package_version": "1.0.0",
+    "sdk_version": "7.1.0",
+    "supported_sdk_versions": ["5.0.0", "6.0.0", "7.0.0"],
+    "tags": [
+        "flashforge",
+	"finder",
+	"monoprice",
+	"xgcode"
+    ],
+    "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
+}

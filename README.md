@@ -5,17 +5,35 @@ experience for Flashforge Finder users.
 
 # Install
 
-1. download the latest release from here 
-2. unzip it 
-4. find your local plugin dir (start Cura -> Help -> Show configuration folder)
-3. copy the folder "GXWriter" into the "plugins" dir 
-4. copy the file under "scripts" into the "scripts" dir
-5. copy the printer sub-folders to their respective cura configuration directories
-6. restart cura
+## From Marketplace
 
-To inlcude the GX code into the gcode slice as normal an save as "GX (xgcode)"
+Comming soon.
 
-# Support for .gx (xgcode) files
+## Binary releases
+
+Download from the .curapackages from Releases page and drop them into Cura.
+After you restart Cura, plugins will be installed and you can save .GX files already.
+In order to add Flashforge Finder, you need to use the Extensions -> Flashforge Finder -> Install files
+menu entry. After that step, you can see FlashForge Finder in the Add Printer dialog.
+Also, you can use the "Pause at layer (Flashforge Finder)" post-processing script
+to print in multiple colors with the programmed filament switch method.
+
+## From source
+
+You can checkout the repository and use the GNU Make tool to build the .curapackage
+files yourself:
+
+	git clone https://github.com/ronoaldo/FlashforgeFinderIntegration
+	make -C FlashforgeFinderIntegration
+
+After that, there will be two .curapackage files in the build directory.
+Follow the same steps as the "Binary Releases" section to use them.
+
+Optionally, you can just copy the two folders under plugins/ directory
+in your Cura configuration plugins direcotry. Go to "Help -> Show configuration directories"
+menu in order to achieve that.
+
+# About the support for .gx (xgcode) files
 
 GX files are normal g-code but with an extra binary header used
 by FlashForge Finder and similar printers.

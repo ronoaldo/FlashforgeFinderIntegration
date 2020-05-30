@@ -3,7 +3,7 @@
     "author": "Ronoaldo JLP",
     "version": "1.0.0",
     "description": "GXWriter writes the required header metadata to printers that interpret GX files, such as Flashforge Finder and Monoprice.",
-    "api": "7.1.0",
+    "api": "7.0.0",
     "supported_sdk_versions": ["5.0.0", "6.0.0", "7.0.0"],
     "i18n-catalog": "cura"
 }
