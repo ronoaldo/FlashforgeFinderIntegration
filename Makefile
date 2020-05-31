@@ -21,6 +21,12 @@ build/GXWriter-$(VERSION).curapackage: plugins/GXWriter/* LICENSE icon.png
 		-x "*__pycache__*" \
 		-x "*pyc" \
 		-r .
+	cd build/GXWriter/files/plugins && \
+		zip ../../../GXWriter-$(VERSION)-src.zip -q \
+		-x "*testdata*" \
+		-x "*__pycache__*" \
+		-x "*pyc" \
+		-r .
 
 build-ffintegration: build/FlashforgeFinderIntegration-$(VERSION).curapackage
 build/FlashforgeFinderIntegration-$(VERSION).curapackage: plugins/FlashforgeFinderIntegration/* LICENSE icon.png
@@ -36,6 +42,12 @@ build/FlashforgeFinderIntegration-$(VERSION).curapackage: plugins/FlashforgeFind
 		-x "*__pycache__*" \
 		-x "*pyc" \
 		-r .
+	cd build/FlashforgeFinderIntegration/files/plugins && \
+		zip ../../../FlashforgeFinderIntegration-$(VERSION)-src.zip -q \
+		-x "*testdata*" \
+		-x "*__pycache__*" \
+		-x "*pyc" \
+		-r FlashforgeFinderIntegration
 
 release: build/GXWriter-$(VERSION).curapackage build/FlashforgeFinderIntegration-$(VERSION).curapackage
 	if [ x"$(VERSION)" = x"master" ] ; then echo "Unable to release from master. Use make VERSION=X.Y.Z" ; exit 1; fi
