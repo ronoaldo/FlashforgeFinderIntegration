@@ -1,3 +1,6 @@
+# Makefile build script to bundle the source
+# code as .curapackage and -src.zip for distribution.
+
 VERSION=master
 
 all: build
@@ -8,6 +11,7 @@ clean:
 build: build-gxwriter build-ffintegration
 
 build-gxwriter: build/GXWriter-$(VERSION).curapackage
+
 build/GXWriter-$(VERSION).curapackage: plugins/GXWriter/* LICENSE icon.png
 	mkdir -p build/GXWriter/files/plugins
 	cp LICENSE icon.png build/GXWriter
@@ -28,7 +32,8 @@ build/GXWriter-$(VERSION).curapackage: plugins/GXWriter/* LICENSE icon.png
 		-x "*pyc" \
 		-r .
 
-build-ffintegration: build/FlashforgeFinderIntegration-$(VERSION).curapackage
+build-ffintegration: build/FlashforgeFinderIntegration-$(VERSION).curapackage plugins/FlashforgeFinderIntegration/printer/definitions/finder.def.json
+
 build/FlashforgeFinderIntegration-$(VERSION).curapackage: plugins/FlashforgeFinderIntegration/* LICENSE icon.png
 	mkdir -p build/FlashforgeFinderIntegration/files/plugins
 	cp LICENSE icon.png build/FlashforgeFinderIntegration
@@ -49,7 +54,11 @@ build/FlashforgeFinderIntegration-$(VERSION).curapackage: plugins/FlashforgeFind
 		-x "*pyc" \
 		-r FlashforgeFinderIntegration
 
-release: build/GXWriter-$(VERSION).curapackage build/FlashforgeFinderIntegration-$(VERSION).curapackage
+plugins/FlashforgeFinderIntegration/printer/definitions/finder.def.json:
+	git submodule init
+	git submodule update
+
+release: build
 	if [ x"$(VERSION)" = x"master" ] ; then echo "Unable to release from master. Use make VERSION=X.Y.Z" ; exit 1; fi
 	git tag v$(VERSION)
 	git push --tags
