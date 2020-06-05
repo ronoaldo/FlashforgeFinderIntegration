@@ -1,3 +1,7 @@
+# Author:   Ronoaldo JLP 
+# Date:     May 24, 2020
+# Description:  Install printer definition and other scripts for the Flashforge Finder printer.
+# License:  GPLv3
 
 import os
 import shutil
@@ -41,10 +45,6 @@ class Installer(Extension):
             "FlashforgeFinderBed.stl": {
                 "src": os.path.join(plugin_path, "printer", "meshes"),
                 "dst": os.path.join(resources_path, "meshes")
-            },
-            "PauseAtLayerFFFinder.py": {
-                "src": os.path.join(plugin_path, "scripts"),
-                "dst": os.path.join(resources_path, "scripts")
             },
             "finder_low.inst.cfg": {
                 "src": os.path.join(plugin_path, "printer", "quality", "finder"),

@@ -5,7 +5,7 @@
         "email": "ronoaldo@gmail.com",
         "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
     },
-    "description": "Flashforge Finder integration utilities to enable setting up and using the printer.",
+    "description": "Flashforge Finder integration utilities to enable setting up and using the printer. This plugin uses the configuration files from https://github.com/eskeyaar/Flashforge-Finder-",
     "display_name": "Flashforge Finder Integration",
     "package_id": "FlashforgeFinderIntegration",
     "package_type": "plugin",

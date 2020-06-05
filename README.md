@@ -13,10 +13,10 @@ Comming soon.
 
 Download from the .curapackages from Releases page and drop them into Cura.
 After you restart Cura, plugins will be installed and you can save .GX files already.
-In order to add Flashforge Finder, you need to use the Extensions -> Flashforge Finder -> Install files
-menu entry. After that step, you can see FlashForge Finder in the Add Printer dialog.
-Also, you can use the "Pause at layer (Flashforge Finder)" post-processing script
-to print in multiple colors with the programmed filament switch method.
+
+In order to add Flashforge Finder, you need to use the Extensions ->
+Flashforge Finder -> Install files menu entry. After that step, you can see FlashForge Finder
+in the Add Printer dialog.
 
 ## From source
 
@@ -24,7 +24,8 @@ You can checkout the repository and use the GNU Make tool to build the .curapack
 files yourself:
 
 	git clone https://github.com/ronoaldo/FlashforgeFinderIntegration
-	make -C FlashforgeFinderIntegration
+	cd FlashforgeFinderIntegration
+	make
 
 After that, there will be two .curapackage files in the build directory.
 Follow the same steps as the "Binary Releases" section to use them.
