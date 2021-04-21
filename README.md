@@ -7,7 +7,7 @@ experience for Flashforge Finder users.
 
 ## From Marketplace
 
-Comming soon.
+Version 1.0.0 available, and version 1.0.1 still under review!
 
 ## Binary releases
 
