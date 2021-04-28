@@ -32,7 +32,7 @@ build/GXWriter-$(VERSION).curapackage: plugins/GXWriter/* LICENSE icon.png
 		-x "*pyc" \
 		-r .
 
-build-ffintegration: build/FlashforgeFinderIntegration-$(VERSION).curapackage plugins/FlashforgeFinderIntegration/printer/definitions/finder.def.json
+build-ffintegration: build/FlashforgeFinderIntegration-$(VERSION).curapackage plugins/FlashforgeFinderIntegration/printer/defs/finder.def.json
 
 build/FlashforgeFinderIntegration-$(VERSION).curapackage: plugins/FlashforgeFinderIntegration/* LICENSE icon.png
 	mkdir -p build/FlashforgeFinderIntegration/files/plugins
@@ -54,7 +54,7 @@ build/FlashforgeFinderIntegration-$(VERSION).curapackage: plugins/FlashforgeFind
 		-x "*pyc" \
 		-r FlashforgeFinderIntegration
 
-plugins/FlashforgeFinderIntegration/printer/definitions/finder.def.json:
+plugins/FlashforgeFinderIntegration/printer/defs/finder.def.json:
 	git submodule init
 	git submodule update
 

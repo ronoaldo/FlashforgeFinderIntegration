@@ -1,3 +1,0 @@
-[submodule "printer"]
-	path = plugins/FlashforgeFinderIntegration/printer
-	url = https://github.com/ronoaldo/Flashforge-Finder
