@@ -35,7 +35,7 @@ class Installer(Extension):
         # Build src -> dst resource map
         resource_map = {
             "finder.def.json": {
-                "src": os.path.join(plugin_path, "printer", "definitions"),
+                "src": os.path.join(plugin_path, "printer", "defs"),
                 "dst": os.path.join(definitions_path)
             },
             "FF_finder_extruder_0.def.json": {
