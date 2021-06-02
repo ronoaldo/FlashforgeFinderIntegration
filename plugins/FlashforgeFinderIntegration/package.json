@@ -11,7 +11,7 @@
     "package_type": "plugin",
     "package_version": "1.0.0",
     "sdk_version": "7.2.0",
-    "supported_sdk_versions": ["7.0.0"],
+    "supported_sdk_versions": ["7.2.0"],
     "tags": [
         "Flashforge",
 	"Finder"
