@@ -1,4 +1,4 @@
-# FlashForge Cura Integration
+### FlashForge Cura Integration
 These are various projects and info from around the net that I've gathered.
 
 I've modified some to work with Cura 5 and bundled them together as I found it really hard to get my Adventurer 3 running in Cura.
@@ -16,7 +16,7 @@ Features:
  - Includes print time, filament amount and other stats
 
 
-## Install
+### Install
 
 Download from the .curapackages from Releases page and drag/drop into Cura.
 After you restart Cura, plugins will be installed and you can save .GX files.
@@ -32,7 +32,7 @@ Features:
  - Materials including PLA, ABS, PETG & TPU
  - Bed mesh so cura displays a FlashForge logo
 
-## Install
+### Install
 
 Copy the "recourses" folder into the "\share\cura" directory in your cura installation.  For example, in Windows 10: C:\Program Files\Ultimaker Cura 5.0.0\share\cura\
 
@@ -40,12 +40,10 @@ The printer appears under the "FlashForge" manufacturer.
 
 If you first test then use a generic PLA, ABS or PETG profile. Dreamer NX print speeds are added to these materials. What is otherwise Flashprint's initial settings are the same as Adventurer 3 speeds. Although I've changed the speeds to improve printing.
 
+
 # Support & Testing
 I have only tested with Cura 5.0.0-beta+1.  Your milage may vary - please open issues.  I'm keen to know if these work in Cura 4.x
 
-
-
-
-## Usefull links
+# Usefull links
 
 * FlashForge gCode guide & FlashPrint settings: https://github.com/AkiraNorthstar/FlashForge-Settings
