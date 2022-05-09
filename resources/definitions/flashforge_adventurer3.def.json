@@ -1,0 +1,33 @@
+{
+    "version": 2,
+    "name": "FlashForge Adventurer 3",
+    "inherits": "flashforge_base",
+    "metadata": {
+        "visible": true,
+        "author": "Egon",
+        "manufacturer": "Flashforge",
+        "platform": "FLASHFORGE_LOGO.stl",
+        "file_formats": "application/gx",
+        "platform_offset": [ 0, 0, 0],
+        "quality_definition": "flashforge_base",
+        "machine_extruder_trains":
+        {
+            "0": "flashforge_adventurer3_extruder_0"
+        }
+    },
+
+    "overrides": {
+        "machine_name": { "default_value": "flashforge Adventurer 3" },
+        "machine_heated_bed": { "default_value": true },
+        "machine_center_is_zero": { "default_value": true },
+        "retraction_enable": { "value": true },
+        "retraction_amount": { "default_value": 5 },
+        "retraction_speed": { "default_value": 25 },
+        "machine_gcode_flavor": { "default_value": "RepRap (Marlin/Sprinter)" },
+        "machine_height": { "default_value": 150 }, 
+        "machine_depth": { "default_value": 150 },
+        "machine_width": { "default_value": 150 },
+        "machine_start_gcode": {"default_value": ";Start Gcode\nG90 ;Absolute coordinates\nM140 S{material_bed_temperature_layer_0} T0 ;Heat bed up to first layer temperature\nM104 S{material_print_temperature_layer_0} T0 ;Set nozzle temperature to first layer temperature\nG28 ;Home all axes\nM132 X Y Z A B ;Recall home offsets\nG1 Z50 F3300 ;Lower bed\nG161 X Y F3300 ;Move Axes to Minimum\nM7 T0 ;Stabilize bed temperature\nM6 T0 ;Stabilize extruder temperature\nM651 ;Set case fan on\nM108 T0 ;Select Active Extruder" },
+        "machine_end_gcode": {"default_value": ";End Gcode\nM104 S0 T0\nM140 S0 T0\nG162 Z F1800 ; Move Z Axes to Maximum\nG28 X Y\nM132 X Y A B\nM652\nG91\nM18 ;Disable Steppers" }
+    }
+}
