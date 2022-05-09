@@ -1,7 +1,7 @@
 {
     "name": "GXWriter",
     "author": "Ronoaldo JLP & Matthew Tong",
-    "version": "1.0.3-DEV",
+    "version": "1.1.0-DEV",
     "minimum_cura_version": "4.0",
     "maximum_cura_version": "5.0",
     "description": "GXWriter writes the required header metadata to printers that interpret GX files, such as Flashforge and Monoprice.",
