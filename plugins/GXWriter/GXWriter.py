@@ -1,5 +1,8 @@
 # Author:   Ronoaldo JLP 
 # Date:     May 24, 2020
+# Updates:  Matthew Tong
+# Date:     May 9, 2022
+
 # Description:  This plugin generates and inserts code including a image of the
 #               slices part.
 # License:  GPLv3
@@ -9,7 +12,7 @@ from UM.MimeTypeDatabase import MimeTypeDatabase, MimeType
 from cura.Snapshot import Snapshot
 from cura.Utils.Threading import call_on_qt_thread
 from UM.Logger import Logger
-from UM.Scene.SceneNode import SceneNode #For typing.
+from UM.Scene.SceneNode import SceneNode
 from UM.PluginRegistry import PluginRegistry
 from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
@@ -18,7 +21,14 @@ import re
 from io import StringIO, BufferedIOBase
 from typing import cast, List
 from . import gx
-from PyQt5 import QtGui, QtCore
+
+try:
+    from PyQt6.QtGui import QImage
+    from PyQt6.QtCore import QByteArray, QBuffer
+except ImportError:
+    from PyQt5.QtGui import QImage
+    from PyQt5.QtCore import QByteArray, QBuffer
+
 
 # Helper function that extracts values from gcode to add to the binary header.
 def getValue(line, key, default=None):
@@ -101,12 +111,12 @@ class GXWriter(MeshWriter):
             # Convert the image to grayscale, and back to 24bits so it renders properly
             # in printer.
             img = Snapshot.snapshot(width = 80, height = 60)
-            img = img.convertToFormat(QtGui.QImage.Format_Grayscale8)
-            img = img.convertToFormat(QtGui.QImage.Format_RGB666)
+            #img = img.convertToFormat(QImage.Format_Grayscale8)
+            #img = img.convertToFormat(QImage.Format_RGB666)
             # Converts the image into BMP byte array.
-            arr = QtCore.QByteArray()
-            buff = QtCore.QBuffer(arr)
-            buff.open(QtCore.QIODevice.WriteOnly)
+            arr = QByteArray()
+            buff = QBuffer(arr)
+            buff.open(QBuffer.OpenModeFlag.WriteOnly)
             img.save(buff, format="BMP")
             g.bmp = arr.data() 
         except Exception:
