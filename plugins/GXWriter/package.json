@@ -1,0 +1,23 @@
+{
+    "author": {
+        "author_id": "ronoaldo",
+        "display_name": "Ronoaldo JLP",
+        "email": "ronoaldo@gmail.com",
+        "website": "https://github.com/mtongnz/FlashforgeCuraIntegration"
+    },
+    "description": "GXWriter creates Flashprint compatible binary header to generated G-Code. Updated by Matthew Tong to work with Cura 5",
+    "display_name": "GXWriter",
+    "package_id": "GXWriterPlugin",
+    "package_type": "plugin",
+    "package_version": "1.1.0-DEV",
+    "sdk_version": 8,
+    "sdk_version_semver":"8.0.0",
+    "tags": [
+        "flashforge",
+        "adventurer 3",
+	"finder",
+	"monoprice",
+	"xgcode"
+    ],
+    "website": "https://github.com/mtongnz/FlashforgeCuraIntegration"
+}
