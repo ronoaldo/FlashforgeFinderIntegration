@@ -18,7 +18,13 @@ import re
 from io import StringIO, BufferedIOBase
 from typing import cast, List
 from . import gx
-from PyQt5 import QtGui, QtCore
+
+qt_version = 6
+try:
+    from PyQt6 import QtGui, QtCore
+except ImportError:
+    qt_version = 5
+    from PyQt5 import QtGui, QtCore
 
 # Helper function that extracts values from gcode to add to the binary header.
 def getValue(line, key, default=None):
@@ -100,15 +106,17 @@ class GXWriter(MeshWriter):
         try:
             # Convert the image to grayscale, and back to 24bits so it renders properly
             # in printer.
+            qt_format_ctx = QtGui.QImage.Format if qt_version == 6 else QtGui.QImage
+            qt_openmode_ctx = QtCore.QIODeviceBase.OpenModeFlag if qt_version == 6 else QtCore.QIODevice
             img = Snapshot.snapshot(width = 80, height = 60)
-            img = img.convertToFormat(QtGui.QImage.Format_Grayscale8)
-            img = img.convertToFormat(QtGui.QImage.Format_RGB666)
+            img = img.convertToFormat(qt_format_ctx.Format_Grayscale8)
+            img = img.convertToFormat(qt_format_ctx.Format_RGB666)
             # Converts the image into BMP byte array.
             arr = QtCore.QByteArray()
             buff = QtCore.QBuffer(arr)
-            buff.open(QtCore.QIODevice.WriteOnly)
+            buff.open(qt_openmode_ctx.WriteOnly)
             img.save(buff, format="BMP")
-            g.bmp = arr.data() 
+            g.bmp = arr.data()
         except Exception:
             Logger.logException("w", "Failed to create snapshot image")
             g.bmp = gx._SAMPLE_BMP 

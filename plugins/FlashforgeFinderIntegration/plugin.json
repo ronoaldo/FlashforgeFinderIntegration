@@ -4,6 +4,15 @@
     "version": "1.0.0",
     "description": "Flashforge Finder integration utilities to enable setting up and using the printer. This plugin uses the configuration files from https://github.com/eskeyaar/Flashforge-Finder-",
     "api": 5,
-    "supported_sdk_versions": ["7.2.0"],
+    "supported_sdk_versions": [
+        "7.2.0",
+        "7.3.0",
+        "7.4.0",
+        "7.5.0",
+        "7.8.0",
+        "7.9.0",
+        "8.0.0",
+        "8.1.0"
+    ],
     "i18n-catalog": "cura"
 }

@@ -10,11 +10,20 @@
     "package_id": "FlashforgeFinderIntegration",
     "package_type": "plugin",
     "package_version": "1.0.0",
-    "sdk_version": "7.2.0",
-    "supported_sdk_versions": ["7.2.0"],
+    "sdk_version": "8.1.0",
+    "supported_sdk_versions": [
+        "7.2.0",
+        "7.3.0",
+        "7.4.0",
+        "7.5.0",
+        "7.8.0",
+        "7.9.0",
+        "8.0.0",
+        "8.1.0"
+    ],
     "tags": [
         "Flashforge",
-	"Finder"
+	    "Finder"
     ],
     "website": "https://github.com/ronoaldo/FlashforgeFinderIntegration"
 }
