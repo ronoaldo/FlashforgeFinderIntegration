@@ -347,9 +347,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA""".encode())
 
+__usage="""Usage: gx.py COMMAND FILE
+
+Where COMMAND can be:
+    wrap    will add a basic GX header to the provided GCODE and print the result to stdout.
+            Example: ./gx.py wrap testdata/cube.gcode > /tmp/cube.gx
+
+    info    will print info from the GX header.
+            Example: ./gx.py info testdata/cube.gx"""
+
 if __name__ == "__main__":
     import sys, traceback
-    cmd = sys.argv[1]
+    cmd = sys.argv[1] if len(sys.argv)>1 else ""
     if cmd == "wrap":
         # Wraps the gcode file into a .gx one, output to stdout
         with open(sys.argv[2], 'rb') as fd:
@@ -383,5 +392,5 @@ if __name__ == "__main__":
             print("Right extruder filament usage:", g.filament_usage, 'mm')
             print("Left extruder filament usage:", g.filament_usage_left, 'mm')
     else:
-        print("Unknown command ", cmd)
+        print(__usage)
         sys.exit(1)
