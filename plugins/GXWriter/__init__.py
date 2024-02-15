@@ -1,6 +1,7 @@
 # Author:   Ronoaldo JLP 
 # Date:     May 24, 2020
-# Description:  This module implements parsing and writing xgcode 1.0 files. 
+# Description:  This plugin generates and inserts code including a image of the
+#               slices part.
 # License:  GPLv3
 
 import sys
