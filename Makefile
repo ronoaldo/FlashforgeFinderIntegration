@@ -58,7 +58,10 @@ plugins/FlashforgeFinderIntegration/printer/defs/finder.def.json:
 	git submodule init
 	git submodule update
 
-release: build
+test:
+	find plugins -type f -iname '*_test.py' | xargs -I{} python3 {}
+
+release: build test
 	if [ x"$(VERSION)" = x"master" ] ; then echo "Unable to release from master. Use make VERSION=X.Y.Z" ; exit 1; fi
 	git tag v$(VERSION)
 	git push --tags

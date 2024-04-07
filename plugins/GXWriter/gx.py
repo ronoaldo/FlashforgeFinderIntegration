@@ -6,6 +6,19 @@
 
 import struct
 import base64
+import re
+
+# Helper function that extracts values from gcode to add to the binary header.
+def getValue(line, key, default=None):
+    if key not in line:
+        return default
+    else:
+        subPart = line[line.find(key) + len(key):]
+        m = re.search('^-?[0-9]+\\.?[0-9]*', subPart)
+    try:
+        return float(m.group(0))
+    except:
+        return default
 
 class GX(object):
     """
@@ -102,6 +115,36 @@ class GX(object):
         buff+= self.bmp
         buff+= self.gcode
         return buff
+
+    @staticmethod
+    def from_gcode(gcode):
+        gx = GX()
+        gx.gcode = gcode.encode('latin-1')
+        for line in gcode.split("\n"):
+            if line.startswith(';TIME:'):
+                gx.print_time = int(getValue(line, ';TIME:', 0))
+            if line.startswith(';Filament used:'):
+                f = float(line.split(':')[1].split('m')[0].strip())
+                f = f*100
+                gx.filament_usage = int(f)
+            if line.startswith(';Layer height:'):
+                f = float(getValue(line, ';Layer height:', 0))
+                f = f*1000
+                gx.layer_height = int(f)
+            if line.startswith('M104 S'):
+                # Fixes temperature if expressed in float (195.0 -> 195)
+                args = []
+                for a in line.split(' '):
+                    if a.startswith('S'):
+                        t = float(a.replace('S', ''))
+                        t = int(t)
+                        a = "S{}".format(t)
+                        if gx.print_temperature <= 0.00:
+                            # Stores the first temperature to the xgcode header
+                            gx.print_temperature = t
+                    args.append(a)
+                gx.gcode = gx.gcode.replace(line.encode(), ' '.join(args).encode())
+        return gx
 
 # base64 --wrap=80 testdata/cura.bmp | xclip -sel clip
 _SAMPLE_BMP = base64.decodebytes("""

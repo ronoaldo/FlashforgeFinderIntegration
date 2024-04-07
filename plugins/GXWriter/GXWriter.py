@@ -14,10 +14,9 @@ from UM.PluginRegistry import PluginRegistry
 from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
 
-import re
 from io import StringIO, BufferedIOBase
 from typing import cast, List
-from . import gx
+from .gx import GX
 
 qt_version = 6
 try:
@@ -26,17 +25,6 @@ except ImportError:
     qt_version = 5
     from PyQt5 import QtGui, QtCore
 
-# Helper function that extracts values from gcode to add to the binary header.
-def getValue(line, key, default=None):
-    if key not in line:
-        return default
-    else:
-        subPart = line[line.find(key) + len(key):]
-        m = re.search('^-?[0-9]+\\.?[0-9]*', subPart)
-    try:
-        return float(m.group(0))
-    except:
-        return default
 
 # Implements a MeshWriter that creates the xgcode header before the gcode
 # content.
@@ -77,29 +65,13 @@ class GXWriter(MeshWriter):
     def modify(self, gcode):
         try:
             # Initialize GX header variables
-            g = gx.GX()
-            g.gcode = gcode.encode('latin-1')
-            # Parse values from original gcode
-            self._parse_gcode_info(g, gcode)
-            self._createSnapshot(g)
-            return g.encode()
+            gx = GX.from_gcode(gcode)
+            # Add snapshot image from Cura
+            self._createSnapshot(gx)
+            return gx.encode()
         except Exception:
             Logger.logException("w", "\n*** Failed to create gx file, defaulting to write regular gcode!!! ***\n")
             return gcode.encode('latin-1')
-
-    def _parse_gcode_info(self, gx, gcode):
-        for line in gcode.split("\n"):
-            if line.startswith(';TIME:'):
-                gx.print_time = int(getValue(line, ';TIME:', 0))
-            if line.startswith(';Filament used:'):
-                f = float(line.split(':')[1].split('m')[0].strip())
-                f = f*100
-                gx.filament_usage = int(f)
-            if line.startswith(';Layer height:'):
-                f = float(getValue(line, ';Layer height:', 0))
-                f = f*1000
-                gx.layer_height = int(f)
-        Logger.log("i", "Updated values from struct =>", vars(gx))
 
     def _createSnapshot(self, g, *args):
         Logger.log("i", "Creating thumbnail image ...")
