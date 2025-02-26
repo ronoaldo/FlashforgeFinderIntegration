@@ -104,18 +104,16 @@ class GXWriter(MeshWriter):
     def _createSnapshot(self, g, *args):
         Logger.log("i", "Creating thumbnail image ...")
         try:
-            # Convert the image to grayscale, and back to 24bits so it renders properly
-            # in printer.
+            # Convert the image to 24bits so it renders properly in printer.
             qt_format_ctx = QtGui.QImage.Format if qt_version == 6 else QtGui.QImage
             qt_openmode_ctx = QtCore.QIODeviceBase.OpenModeFlag if qt_version == 6 else QtCore.QIODevice
-            img = Snapshot.snapshot(width = 80, height = 60)
-            img = img.convertToFormat(qt_format_ctx.Format_Grayscale8)
+            img = Snapshot.snapshot(width = 320, height = 320)
             img = img.convertToFormat(qt_format_ctx.Format_RGB666)
-            # Converts the image into BMP byte array.
+            # Converts the image into PNG byte array.
             arr = QtCore.QByteArray()
             buff = QtCore.QBuffer(arr)
             buff.open(qt_openmode_ctx.WriteOnly)
-            img.save(buff, format="BMP")
+            img.save(buff, 'PNG')
             g.bmp = arr.data()
         except Exception:
             Logger.logException("w", "Failed to create snapshot image")
