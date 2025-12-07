@@ -54,7 +54,7 @@ class GXWriter(MeshWriter):
         )
 
     @call_on_qt_thread 
-    def write(self, stream, nodes: List[SceneNode], mode = MeshWriter.OutputMode.BinaryMode) -> bool:
+    def write(self, stream, nodes: List[SceneNode], mode = MeshWriter.OutputMode.BinaryMode, mime_type=None) -> bool:
         Logger.log("i", "Starting GXWriter.")
         if mode != MeshWriter.OutputMode.BinaryMode:
             Logger.log("e", "GXWriter does not support non-text mode.")
